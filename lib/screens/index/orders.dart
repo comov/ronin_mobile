@@ -69,7 +69,7 @@ Widget bottomOrders(BuildContext context) {
                   Navigator.pushNamed(
                     context,
                     "/order/detail",
-                    arguments: OrderDetailArgs(order: orders[index]),
+                    arguments: OrderDetailArgs(orderId: orders[index].id),
                   );
                 },
                 child: Row(

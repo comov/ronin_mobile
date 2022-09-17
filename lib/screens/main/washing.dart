@@ -242,7 +242,7 @@ class _WashingNewState extends State<WashingNew> {
                                   Navigator.pushNamed(
                                     context,
                                     "/order/detail",
-                                    arguments: OrderDetailArgs(order: order),
+                                    arguments: OrderDetailArgs(orderId: order.id),
                                   );
                                 } else {
                                   setState(() => _clicked = false);

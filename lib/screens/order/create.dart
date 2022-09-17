@@ -258,7 +258,7 @@ class _OrderNewState extends State<OrderNew> {
                                   Navigator.pushNamed(
                                     context,
                                     "/order/detail",
-                                    arguments: OrderDetailArgs(order: order),
+                                    arguments: OrderDetailArgs(orderId: order.id),
                                   );
                                 } else {
                                   setState(() => _clicked = false);
