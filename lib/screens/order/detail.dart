@@ -15,6 +15,7 @@ class OrderDetailArgs {
 }
 
 class OrderDetail extends StatefulWidget {
+
   const OrderDetail({Key? key}) : super(key: key);
 
   @override

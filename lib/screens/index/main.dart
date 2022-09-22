@@ -16,9 +16,6 @@ mixin MainState {
       ),
       body: Column(
         children: [
-          const Expanded(
-            child: Text("Последние два активных заказа"),
-          ),
           Expanded(
             child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

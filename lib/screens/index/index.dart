@@ -4,6 +4,7 @@ import 'package:car_helper/screens/index/orders.dart';
 import 'package:car_helper/screens/index/profile.dart';
 import 'package:car_helper/screens/index/services.dart';
 import 'package:car_helper/screens/notification_badge.dart';
+import 'package:car_helper/screens/order/detail.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -116,17 +117,23 @@ class _IndexState extends State<Index>
   }
 
   void _handleMessage(RemoteMessage message) {
+    // debugPrint('_handleMessage');
+    debugPrint('routeFromNotification');
+
     final routeFromNotification = message.data["screen"];
+    // final int orderFromNotification = message.data["order"];
+    debugPrint('routeFromNotification - $routeFromNotification');
 
-    if (routeFromNotification != null) {
+    if (routeFromNotification != 0) {
 
-        debugPrint(routeFromNotification);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    Index(3)),
-                (Route<dynamic> route) => false);
+        debugPrint("routeFromNotification");
+        Future.delayed(const Duration(milliseconds: 1000), () async {
+          Navigator.of(context).pushNamed(
+            "/order/detail",
+            arguments: OrderDetailArgs(orderId: int.parse(routeFromNotification)),
+          );
+        });
+
 
     } else {
       debugPrint('couldnt find the route');
@@ -138,8 +145,6 @@ class _IndexState extends State<Index>
   void initState() {
     SystemChannels.textInput.invokeMethod('TexInput.hide');
     requestAndRegisterNotification();
-    setupInteractedMessage();
-
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       PushNotification notification = PushNotification(
         title: message.notification?.title,
@@ -153,6 +158,20 @@ class _IndexState extends State<Index>
     _totalNotifications = 0;
 
     super.initState();
+    setupInteractedMessage();
+
+    Stream<RemoteMessage> _stream = FirebaseMessaging.onMessageOpenedApp;
+    _stream.listen((RemoteMessage event) async {
+      if (event.data != null) {
+        final routeFromNotification = event.data["screen"];
+
+        await Navigator.of(context).pushNamed(
+          "/order/detail",
+          arguments: OrderDetailArgs(orderId: int.parse(routeFromNotification)),
+        );
+      }
+    });
+
 
     widgetOptions = {
       0: ["Главная", renderMain],

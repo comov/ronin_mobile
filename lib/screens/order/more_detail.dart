@@ -56,6 +56,8 @@ class _MoreOrderDetailState extends State<MoreOrderDetail> {
           children: [
             Text("Статус: ${order.status}"),
             Text("Комментарий к заявке: ${order.comment}"),
+            Text("Авто: ${order.car?.brand} ${order.car?.model}"),
+            Text("ГОС. Номер авто: ${order.car?.plateNumber}"),
             const Divider(),
             Text("Адрес откуда забрать авто: ${order.pickUpAddress}"),
             order.pickUpTime != null
@@ -65,11 +67,6 @@ class _MoreOrderDetailState extends State<MoreOrderDetail> {
             const Divider(),
             Text(
                 "ФИО менеджера: ${order.employee?.lastName} ${order.employee?.firstName}"),
-            const Divider(),
-            const Text("Авто:"),
-            Text("Марка: ${order.car?.brand}"),
-            Text("Модель: ${order.car?.model}"),
-            Text("ГОС. Номер авто: ${order.car?.plateNumber}"),
             Text(
                 "ФИО водителя: ${order.driver?.lastName} ${order.driver?.firstName}"),
             Text("Номер телефона водителя: ${order.driver?.phone} "),
