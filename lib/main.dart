@@ -3,7 +3,6 @@ import 'package:car_helper/screens/authorization/sign_in_screen.dart';
 import 'package:car_helper/screens/debug_page_screen.dart';
 import 'package:car_helper/screens/index/checkerpage.dart';
 import 'package:car_helper/screens/index/index.dart';
-import 'package:car_helper/screens/order/message.dart';
 import 'package:car_helper/screens/order/create.dart';
 import 'package:car_helper/screens/order/createcarfromorder.dart';
 import 'package:car_helper/screens/order/detail.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OverlaySupport(
-      child: MaterialApp(
+        child: MaterialApp(
       title: "CarHelpers",
       initialRoute: "/checkerPage",
       navigatorObservers: [
@@ -110,6 +109,6 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       showSemanticsDebugger: false,
-      ));
+    ));
   }
 }

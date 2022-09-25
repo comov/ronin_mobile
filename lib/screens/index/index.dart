@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unnecessary_null_comparison
+
 import 'package:car_helper/entities/push_notifications.dart';
 import 'package:car_helper/screens/index/main.dart';
 import 'package:car_helper/screens/index/orders.dart';
@@ -103,7 +105,7 @@ class _IndexState extends State<Index>
       debugPrint('User declined or has not accepted permission');
     }
 
-    final token =
+    const token =
         "eyJhbGciOiAiUlMyNTYiLCAidHlwIjogIkpXVCIsICJraWQiOiAiYzNhZTcyMDYyODZmYmEwYTZiODIxNzllYTQ0NmFiZjE4Y2FjOGM2ZSJ9.eyJpc3MiOiAiZmlyZWJhc2UtYWRtaW5zZGsteXd6eGVAcm9uaW4tbW9iaWxlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgInN1YiI6ICJmaXJlYmFzZS1hZG1pbnNkay15d3p4ZUByb25pbi1tb2JpbGUuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiYXVkIjogImh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwgInVpZCI6ICJzb21lLWlkLTEiLCAiaWF0IjogMTY2NDExNzE0NSwgImV4cCI6IDE2NjQxMjA3NDV9.YI5QO0ab02rVz6y3U-vXlv4P01RyZR1_M1VP9nr-popM4NB9CQsZ-RId9dP1aKYjYc4eHi6ruzbRFUXTEerWNKyxmx-Wukbs0ctBYv4QpgDu6YA0aeR00ZYCib9hl_pX_u0jvNd5AexoWEaKTM-yQgxvaj_L5OfMz-C01EZbKETF-g3XGg25l7rZnANySKHl0BZrk5Oa6oMp7wAYNb8u2hoD7gRaEwkqrRi5loctugKZNbGgr0-dB8kUpoY_uHm6eQuacnT3Y2ZqsxKiqikM7oxcSMeVaXAkcH6fJ1KV6NAjubxLgYES95VJU2geNYHlNevmTKLmlzN9K3ZNRduOxw";
     try {
       final userCredential =

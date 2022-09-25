@@ -2,7 +2,6 @@ import 'package:car_helper/entities/order.dart';
 import 'package:car_helper/resources/refresh.dart';
 import 'package:car_helper/screens/authorization/auth_screen.dart';
 import 'package:car_helper/screens/order/chat.dart';
-import 'package:car_helper/screens/order/message.dart';
 import 'package:car_helper/screens/order/more_detail.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
@@ -249,10 +248,13 @@ class _OrderDetailState extends State<OrderDetail> {
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (context) => chatpage(orderId: order.id.toString(),)),
-                                (Route<dynamic> route) => true);
-                                },
-                      child: Text("Чат заявки"))
+                            MaterialPageRoute(
+                                builder: (context) => ChatPage(
+                                      orderId: order.id.toString(),
+                                    )),
+                            (Route<dynamic> route) => true);
+                      },
+                      child: const Text("Чат заявки"))
                 ],
               ),
             ),
