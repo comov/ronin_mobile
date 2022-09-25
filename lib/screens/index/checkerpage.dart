@@ -5,6 +5,8 @@ import 'package:car_helper/screens/authorization/sign_in_screen.dart';
 import 'package:car_helper/screens/index/index.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class CheckerPage extends StatefulWidget {
   const CheckerPage({Key? key}) : super(key: key);
@@ -105,6 +107,7 @@ class _CheckerPage extends State<CheckerPage> {
           }
         }
     }
+
 
     return Future.value("Ok");
   }

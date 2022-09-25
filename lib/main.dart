@@ -3,6 +3,7 @@ import 'package:car_helper/screens/authorization/sign_in_screen.dart';
 import 'package:car_helper/screens/debug_page_screen.dart';
 import 'package:car_helper/screens/index/checkerpage.dart';
 import 'package:car_helper/screens/index/index.dart';
+import 'package:car_helper/screens/order/message.dart';
 import 'package:car_helper/screens/order/create.dart';
 import 'package:car_helper/screens/order/createcarfromorder.dart';
 import 'package:car_helper/screens/order/detail.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
         "/order/create_car_from_order": (BuildContext context) =>
             const CreateCarFromOrder(),
         "/order/detail": (BuildContext context) => const OrderDetail(),
+        // "/order/chat": (BuildContext context) => const ChatPage(room: "33",),
         "/order/more_detail": (BuildContext context) => const MoreOrderDetail(),
         "/user/edit_profile": (BuildContext context) => const UserEdit(),
         "/user/create_car": (BuildContext context) => const CreateCar(),

@@ -50,6 +50,9 @@ dependencies:
   overlay_support: ^2.0.1
   flutter_local_notifications: ^9.9.1
   flutter_launcher_icons: ^0.10.0
+  firebase_auth: ^3.10.0
+  firebase_storage: ^10.3.9
+  cloud_firestore: ^3.4.9
 
 dev_dependencies:
   flutter_test:

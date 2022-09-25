@@ -1,6 +1,8 @@
 import 'package:car_helper/entities/order.dart';
 import 'package:car_helper/resources/refresh.dart';
 import 'package:car_helper/screens/authorization/auth_screen.dart';
+import 'package:car_helper/screens/order/chat.dart';
+import 'package:car_helper/screens/order/message.dart';
 import 'package:car_helper/screens/order/more_detail.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,6 @@ class OrderDetailArgs {
 }
 
 class OrderDetail extends StatefulWidget {
-
   const OrderDetail({Key? key}) : super(key: key);
 
   @override
@@ -244,7 +245,14 @@ class _OrderDetailState extends State<OrderDetail> {
                             arguments: MoreOrderDetailArgs(order: order));
                       },
                       child: const Text("Подробнее")),
-                  const TextButton(onPressed: null, child: Text("Чат заявки"))
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => chatpage(email: "isafiulin00@gmail.com",)),
+                                (Route<dynamic> route) => true);
+                                },
+                      child: Text("Чат заявки"))
                 ],
               ),
             ),

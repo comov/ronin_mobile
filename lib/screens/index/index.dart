@@ -12,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -73,8 +75,7 @@ class _IndexState extends State<Index>
       debugPrint('User granted permission');
       String? token = await _messaging.getToken();
       debugPrint("The token is $token");
-      print("token is " + token!);
-      pf.setString("firebase_token", token);
+      pf.setString("firebase_token", token!);
 
       // For handling the received notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -102,6 +103,25 @@ class _IndexState extends State<Index>
     } else {
       debugPrint('User declined or has not accepted permission');
     }
+
+    final token = "eyJhbGciOiAiUlMyNTYiLCAidHlwIjogIkpXVCIsICJraWQiOiAiYzNhZTcyMDYyODZmYmEwYTZiODIxNzllYTQ0NmFiZjE4Y2FjOGM2ZSJ9.eyJpc3MiOiAiZmlyZWJhc2UtYWRtaW5zZGsteXd6eGVAcm9uaW4tbW9iaWxlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgInN1YiI6ICJmaXJlYmFzZS1hZG1pbnNkay15d3p4ZUByb25pbi1tb2JpbGUuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiYXVkIjogImh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwgInVpZCI6ICJzb21lLWlkIiwgImlhdCI6IDE2NjQxMTI3NjYsICJleHAiOiAxNjY0MTE2MzY2fQ.KMcL_8vPOhVcCnv8spqH3Z0eFLe3tC758RVnc2Iy7T6QsNJywnBqlPVjM4zCHGMv4o4yTIGZ34uw6a8_LbgwM4MDGJfU-Llg0Fn4XmcKddaRrFVzEG64o5TKnpIEw2lHiE-LyRCpyUqv-ai3HDhvrr3Gov8CILfYeE1vCrRFutBt6-uOo6bvlTMNAIjoxBF3PaGaW108Evzpnsn6kudHoga9rTGgoFIC_OcX0E8uGlPYAp7_E0ue8RqPe3OQ43gJKFG0q2qDV3p7pXtRyv85xkwWHYAJS4iucIGv9HebrOvl-GNSHzc1WY2fMWfPITQS4kp3V3UcCQXOa9cQaslF3A";
+    try {
+      final userCredential =
+      await FirebaseAuth.instance.signInWithCustomToken(token);
+      print("Sign-in successful.");
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "invalid-custom-token":
+          print("The supplied token is not a Firebase custom auth token.");
+          break;
+        case "custom-token-mismatch":
+          print("The supplied token is for a different Firebase project.");
+          break;
+        default:
+          print("Unkown error.");
+      }
+    }
+
   }
 
   Future<void> setupInteractedMessage() async {
@@ -117,8 +137,6 @@ class _IndexState extends State<Index>
   }
 
   void _handleMessage(RemoteMessage message) {
-    // debugPrint('_handleMessage');
-    debugPrint('routeFromNotification');
 
     final routeFromNotification = message.data["screen"];
     // final int orderFromNotification = message.data["order"];
@@ -171,6 +189,8 @@ class _IndexState extends State<Index>
         );
       }
     });
+
+
 
 
     widgetOptions = {
