@@ -14,7 +14,6 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   debugPrint("Handling a background message: ${message.messageId}");
@@ -104,10 +103,11 @@ class _IndexState extends State<Index>
       debugPrint('User declined or has not accepted permission');
     }
 
-    final token = "eyJhbGciOiAiUlMyNTYiLCAidHlwIjogIkpXVCIsICJraWQiOiAiYzNhZTcyMDYyODZmYmEwYTZiODIxNzllYTQ0NmFiZjE4Y2FjOGM2ZSJ9.eyJpc3MiOiAiZmlyZWJhc2UtYWRtaW5zZGsteXd6eGVAcm9uaW4tbW9iaWxlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgInN1YiI6ICJmaXJlYmFzZS1hZG1pbnNkay15d3p4ZUByb25pbi1tb2JpbGUuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiYXVkIjogImh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwgInVpZCI6ICJzb21lLWlkIiwgImlhdCI6IDE2NjQxMTI3NjYsICJleHAiOiAxNjY0MTE2MzY2fQ.KMcL_8vPOhVcCnv8spqH3Z0eFLe3tC758RVnc2Iy7T6QsNJywnBqlPVjM4zCHGMv4o4yTIGZ34uw6a8_LbgwM4MDGJfU-Llg0Fn4XmcKddaRrFVzEG64o5TKnpIEw2lHiE-LyRCpyUqv-ai3HDhvrr3Gov8CILfYeE1vCrRFutBt6-uOo6bvlTMNAIjoxBF3PaGaW108Evzpnsn6kudHoga9rTGgoFIC_OcX0E8uGlPYAp7_E0ue8RqPe3OQ43gJKFG0q2qDV3p7pXtRyv85xkwWHYAJS4iucIGv9HebrOvl-GNSHzc1WY2fMWfPITQS4kp3V3UcCQXOa9cQaslF3A";
+    final token =
+        "eyJhbGciOiAiUlMyNTYiLCAidHlwIjogIkpXVCIsICJraWQiOiAiYzNhZTcyMDYyODZmYmEwYTZiODIxNzllYTQ0NmFiZjE4Y2FjOGM2ZSJ9.eyJpc3MiOiAiZmlyZWJhc2UtYWRtaW5zZGsteXd6eGVAcm9uaW4tbW9iaWxlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgInN1YiI6ICJmaXJlYmFzZS1hZG1pbnNkay15d3p4ZUByb25pbi1tb2JpbGUuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiYXVkIjogImh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwgInVpZCI6ICJzb21lLWlkLTEiLCAiaWF0IjogMTY2NDExNzE0NSwgImV4cCI6IDE2NjQxMjA3NDV9.YI5QO0ab02rVz6y3U-vXlv4P01RyZR1_M1VP9nr-popM4NB9CQsZ-RId9dP1aKYjYc4eHi6ruzbRFUXTEerWNKyxmx-Wukbs0ctBYv4QpgDu6YA0aeR00ZYCib9hl_pX_u0jvNd5AexoWEaKTM-yQgxvaj_L5OfMz-C01EZbKETF-g3XGg25l7rZnANySKHl0BZrk5Oa6oMp7wAYNb8u2hoD7gRaEwkqrRi5loctugKZNbGgr0-dB8kUpoY_uHm6eQuacnT3Y2ZqsxKiqikM7oxcSMeVaXAkcH6fJ1KV6NAjubxLgYES95VJU2geNYHlNevmTKLmlzN9K3ZNRduOxw";
     try {
       final userCredential =
-      await FirebaseAuth.instance.signInWithCustomToken(token);
+          await FirebaseAuth.instance.signInWithCustomToken(token);
       print("Sign-in successful.");
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -121,7 +121,6 @@ class _IndexState extends State<Index>
           print("Unkown error.");
       }
     }
-
   }
 
   Future<void> setupInteractedMessage() async {
@@ -132,31 +131,25 @@ class _IndexState extends State<Index>
 
     if (initialMessage != null) {
       _handleMessage(initialMessage);
-
     }
   }
 
   void _handleMessage(RemoteMessage message) {
-
     final routeFromNotification = message.data["screen"];
     // final int orderFromNotification = message.data["order"];
     debugPrint('routeFromNotification - $routeFromNotification');
 
     if (routeFromNotification != 0) {
-
-        debugPrint("routeFromNotification");
-        Future.delayed(const Duration(milliseconds: 1000), () async {
-          Navigator.of(context).pushNamed(
-            "/order/detail",
-            arguments: OrderDetailArgs(orderId: int.parse(routeFromNotification)),
-          );
-        });
-
-
+      debugPrint("routeFromNotification");
+      Future.delayed(const Duration(milliseconds: 1000), () async {
+        Navigator.of(context).pushNamed(
+          "/order/detail",
+          arguments: OrderDetailArgs(orderId: int.parse(routeFromNotification)),
+        );
+      });
     } else {
       debugPrint('couldnt find the route');
     }
-
   }
 
   @override
@@ -189,9 +182,6 @@ class _IndexState extends State<Index>
         );
       }
     });
-
-
-
 
     widgetOptions = {
       0: ["Главная", renderMain],

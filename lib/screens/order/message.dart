@@ -2,22 +2,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class messages extends StatefulWidget {
-  String email;
-  messages({required this.email});
+  String orderId;
+  messages({required this.orderId});
   @override
-  _messagesState createState() => _messagesState(email: email);
+  _messagesState createState() => _messagesState(orderId: orderId);
 }
 
 class _messagesState extends State<messages> {
-  String email;
-  _messagesState({required this.email});
+  String orderId;
+  _messagesState({required this.orderId});
 
-  Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
-      .collection('messages')
-      .orderBy('timestamp')
-      .snapshots();
+  // Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
+  //     .collection('rooms').doc('order_$orderId').collection("messages")
+  //     .orderBy('timestamp')
+  //     .snapshots();
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
+        .collection('rooms').doc('order_$orderId').collection("messages")
+        .orderBy('timestamp')
+        .snapshots();
+
     return StreamBuilder(
       stream: _messageStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

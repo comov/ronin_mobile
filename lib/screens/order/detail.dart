@@ -249,7 +249,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (context) => chatpage(email: "isafiulin00@gmail.com",)),
+                            MaterialPageRoute(builder: (context) => chatpage(orderId: order.id.toString(),)),
                                 (Route<dynamic> route) => true);
                                 },
                       child: Text("Чат заявки"))

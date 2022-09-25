@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'message.dart';
 
 class chatpage extends StatefulWidget {
-  String email;
-  chatpage({required this.email});
+  String orderId;
+  chatpage({required this.orderId});
   @override
-  _chatpageState createState() => _chatpageState(email: email);
+  _chatpageState createState() => _chatpageState(orderId: orderId);
 }
 
 class _chatpageState extends State<chatpage> {
-  String email;
-  _chatpageState({required this.email});
+  String orderId;
+  _chatpageState({required this.orderId});
 
   final fs = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
@@ -23,7 +23,7 @@ class _chatpageState extends State<chatpage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'data',
+          'Заказ $orderId',
         ),
         actions: [
 
@@ -37,7 +37,7 @@ class _chatpageState extends State<chatpage> {
             Container(
               height: MediaQuery.of(context).size.height * 0.79,
               child: messages(
-                email: email,
+                orderId: orderId,
               ),
             ),
             Row(
@@ -70,7 +70,7 @@ class _chatpageState extends State<chatpage> {
                 IconButton(
                   onPressed: () {
                     if (message.text.isNotEmpty) {
-                      fs.collection('messages').doc().set({
+                      fs.collection('rooms').doc('order_$orderId').collection("messages").doc().set({
                         'text': message.text.trim(),
                         'timestamp': DateTime.now(),
                         // 'name': email,
