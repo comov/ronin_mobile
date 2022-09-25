@@ -50,7 +50,7 @@ class _ChatPageState extends State<ChatPage> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.purple[100],
-                      hintText: 'message',
+                      hintText: 'Сообщение...',
                       enabled: true,
                       contentPadding: const EdgeInsets.only(
                           left: 14.0, bottom: 8.0, top: 8.0),
