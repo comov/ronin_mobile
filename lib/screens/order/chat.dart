@@ -30,69 +30,77 @@ class _ChatPageState extends State<ChatPage> {
         title: Text(
           'Заказ $orderId',
         ),
+        titleTextStyle: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.79,
-              child: Messages(
-                orderId: orderId,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.79,
+                child: Messages(
+                  orderId: orderId,
+                ),
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: message,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.purple[100],
-                      hintText: 'Сообщение...',
-                      enabled: true,
-                      contentPadding: const EdgeInsets.only(
-                          left: 14.0, bottom: 8.0, top: 8.0),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.purple),
-                        borderRadius: BorderRadius.circular(10),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: message,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.purple[100],
+                        hintText: 'Сообщение...',
+                        enabled: true,
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.purple),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.purple),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.purple),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      validator: (value) {
+                        return null;
+                      },
+                      onSaved: (value) {
+                        message.text = value!;
+                      },
                     ),
-                    validator: (value) {
-                      return null;
-                    },
-                    onSaved: (value) {
-                      message.text = value!;
-                    },
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    if (message.text.isNotEmpty) {
-                      fs
-                          .collection('rooms')
-                          .doc('order_$orderId')
-                          .collection("messages")
-                          .doc()
-                          .set({
-                        'text': message.text.trim(),
-                        'timestamp': DateTime.now(),
-                        // 'name': email,
-                      });
+                  IconButton(
+                    onPressed: () {
+                      if (message.text.isNotEmpty) {
+                        fs
+                            .collection('rooms')
+                            .doc('order_$orderId')
+                            .collection("messages")
+                            .doc()
+                            .set({
+                          'text': message.text.trim(),
+                          'timestamp': DateTime.now(),
+                          // 'name': email,
+                        });
 
-                      message.clear();
-                    }
-                  },
-                  icon: const Icon(Icons.send_sharp),
-                ),
-              ],
-            ),
-          ],
+                        message.clear();
+                      }
+                    },
+                    icon: const Icon(Icons.send_sharp),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

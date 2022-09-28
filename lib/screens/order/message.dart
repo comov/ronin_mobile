@@ -17,10 +17,6 @@ class _MessagesState extends State<Messages> {
 
   _MessagesState({required this.orderId});
 
-  // Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
-  //     .collection('rooms').doc('order_$orderId').collection("messages")
-  //     .orderBy('timestamp')
-  //     .snapshots();
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
@@ -51,7 +47,7 @@ class _MessagesState extends State<Messages> {
             QueryDocumentSnapshot qs = snapshot.data!.docs[index];
             Timestamp t = qs['timestamp'];
             DateTime d = t.toDate();
-            print(d.toString());
+            // print(d.toString());
             return Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8),
               child: Column(
@@ -64,7 +60,7 @@ class _MessagesState extends State<Messages> {
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         side: const BorderSide(
-                          color: Colors.purple,
+                          color: Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
