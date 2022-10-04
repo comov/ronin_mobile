@@ -237,17 +237,16 @@ void delFromStorage() async {
   pf.remove("refresh_key");
 }
 
-void sharePressed(token) {
-  // String token = "";
+void sharePressed() {
   String message =
       "Я пользуюсь приложением RoninMobile. Присоединяйся instagram.link";
-  Share.share(token);
+  Share.share(message);
 }
 
 void selectedItem(BuildContext context, item) {
   switch (item) {
     case 0:
-      sharePressed(firebaseToken);
+      sharePressed();
       break;
     case 1:
       if (kDebugMode) {

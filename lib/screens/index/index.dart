@@ -74,9 +74,9 @@ class _IndexState extends State<Index>
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       debugPrint('User granted permission');
-      String? token = await _messaging.getToken();
-      debugPrint("The token is $token");
-      pf.setString("firebase_token", token!);
+      String? fireBasePushToken = await _messaging.getToken();
+      pf.setString("firebase_push_token", fireBasePushToken!);
+
 
       // For handling the received notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -105,10 +105,10 @@ class _IndexState extends State<Index>
       debugPrint('User declined or has not accepted permission');
     }
 
-    final fireToken = pf.getString("fire_token") ?? "";
+    final fireBaseChatToken = pf.getString("firebase_chat_token") ?? "";
     try {
       final userCredential =
-          await FirebaseAuth.instance.signInWithCustomToken(fireToken);
+          await FirebaseAuth.instance.signInWithCustomToken(fireBaseChatToken);
       print("Sign-in successful.");
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -119,7 +119,7 @@ class _IndexState extends State<Index>
           print("The supplied token is for a different Firebase project.");
           break;
         default:
-          print("Unkown error.");
+          print("Unknown error.");
       }
     }
   }
@@ -141,7 +141,6 @@ class _IndexState extends State<Index>
     debugPrint('routeFromNotification - $routeFromNotification');
 
     if (routeFromNotification != 0) {
-      debugPrint("routeFromNotification");
       Future.delayed(const Duration(milliseconds: 1000), () async {
         Navigator.of(context).pushNamed(
           "/order/detail",
@@ -149,7 +148,7 @@ class _IndexState extends State<Index>
         );
       });
     } else {
-      debugPrint('couldnt find the route');
+      debugPrint('could not find the route');
     }
   }
 

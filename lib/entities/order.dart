@@ -1,4 +1,5 @@
 import 'package:car_helper/entities/car.dart';
+import 'package:car_helper/entities/customer.dart';
 import 'package:car_helper/entities/driver.dart';
 import 'package:car_helper/entities/employee.dart';
 import 'package:car_helper/entities/photo.dart';
@@ -44,6 +45,7 @@ class Order {
   final DateTime modifiedAt;
   final Car? car;
   final Driver? driver;
+  final Customer customer;
   final Employee? employee;
   final List<Service> services;
   final List<Photo?> photos;
@@ -55,6 +57,7 @@ class Order {
     this.pickUpTime,
     required this.status,
     required this.car,
+    required this.customer,
     required this.driver,
     required this.employee,
     required this.services,
@@ -91,6 +94,9 @@ class Order {
       createdAt: DateTime.parse(json["created_at"]),
       modifiedAt: DateTime.parse(json["modified_at"]),
       car: json["car"] == null ? Car.empty() : Car.fromJson(json["car"]),
+      customer: json["customer"] == null
+          ? Customer.empty()
+          : Customer.fromJson(json["customer"]),
       driver: json["driver"] == null
           ? Driver.empty()
           : Driver.fromJson(json["driver"]),
@@ -100,14 +106,13 @@ class Order {
       services: services,
       photos: photos,
       // photos: json["photos"] == null ? Photo.empty() : Photo.fromJson(json["photos"]),
-
     );
   }
 }
 
-
 extension DateTimeExtension on DateTime {
-  static DateTime parseUtc(String formattedDate) => DateTime.parse(formattedDate);
+  static DateTime parseUtc(String formattedDate) =>
+      DateTime.parse(formattedDate);
 
   static DateTime? tryParseUtc(String? formattedDate) {
     if (formattedDate != null) {
@@ -116,4 +121,3 @@ extension DateTimeExtension on DateTime {
     return null;
   }
 }
-

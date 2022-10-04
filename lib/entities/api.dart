@@ -27,3 +27,16 @@ class AuthData {
     return AuthData(token: json["token"], refreshKey: json["refresh_key"]);
   }
 }
+
+
+
+
+class FireChatAuthData {
+  final String token;
+
+  const FireChatAuthData({required this.token});
+
+  factory FireChatAuthData.fromJson(Map<String, dynamic> json) {
+    return FireChatAuthData(token: json["token"]);
+  }
+}

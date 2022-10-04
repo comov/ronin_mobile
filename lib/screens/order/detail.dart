@@ -251,6 +251,7 @@ class _OrderDetailState extends State<OrderDetail> {
                             MaterialPageRoute(
                                 builder: (context) => ChatPage(
                                       orderId: order.id.toString(),
+                                  customer: order.customer
                                     )),
                             (Route<dynamic> route) => true);
                       },

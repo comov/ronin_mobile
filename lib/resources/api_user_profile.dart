@@ -15,6 +15,21 @@ class ProfileResponse {
   const ProfileResponse({required this.statusCode, this.profile, this.error});
 }
 
+class FireAuthResponse {
+  final int statusCode;
+  final FireChatAuthData? auth;
+  final ApiErrorResponse? error;
+
+  const FireAuthResponse({required this.statusCode, this.auth, this.error});
+}
+
+class FirePushResponse {
+  final int statusCode;
+  final ApiErrorResponse? error;
+
+  const FirePushResponse({required this.statusCode, this.error});
+}
+
 Future<ProfileResponse> getProfile(String authToken) async {
   final response = await http.get(
     Uri.parse("$backendURL/api/v1/user/profile"),
@@ -30,6 +45,47 @@ Future<ProfileResponse> getProfile(String authToken) async {
     );
   }
   return ProfileResponse(
+    statusCode: response.statusCode,
+    error: ApiErrorResponse.fromJson(jsonDecode(response.body)),
+  );
+}
+
+Future<FireAuthResponse> getFirebaseChatToken(String authToken) async {
+  final response = await http.get(
+    Uri.parse("$backendURL/api/v1/user/profile/firebase/token"),
+    headers: <String, String>{
+      "Content-Type": "application/json; charset=UTF-8",
+      "Authorization": "Bearer $authToken",
+    },
+  );
+  if (response.statusCode == 200) {
+    return FireAuthResponse(
+      statusCode: response.statusCode,
+      auth: FireChatAuthData.fromJson(jsonDecode(response.body)),
+    );
+  }
+  return FireAuthResponse(
+    statusCode: response.statusCode,
+    error: ApiErrorResponse.fromJson(jsonDecode(response.body)),
+  );
+}
+
+Future<FirePushResponse> postFirebasePushToken(
+    String authToken, String fireBasePushToken) async {
+  final response = await http.post(
+    Uri.parse(
+        "$backendURL/api/v1/user/profile/firebase?fb_token=$fireBasePushToken"),
+    headers: <String, String>{
+      "Content-Type": "application/json; charset=UTF-8",
+      "Authorization": "Bearer $authToken",
+    },
+  );
+  if (response.statusCode == 200) {
+    return FirePushResponse(
+      statusCode: response.statusCode,
+    );
+  }
+  return FirePushResponse(
     statusCode: response.statusCode,
     error: ApiErrorResponse.fromJson(jsonDecode(response.body)),
   );
